@@ -93,25 +93,8 @@ RUN \
     cp -r nginx-proxy-manager/rootfs/etc/nginx /etc/ && \
     cp -r nginx-proxy-manager/rootfs/var/www /var/ && \
 
-    # Change the management interface port to the unprivileged port 8181.
-    sed-patch 's|81|8181|' /opt/nginx-proxy-manager/src/backend/index.js && \
-    sed-patch 's|81|8181|' /etc/nginx/conf.d/default.conf && \
-
-    # Change the HTTP port 80 to the unprivileged port 8080.
-    sed-patch 's|listen 80;|listen 8080;|' /etc/nginx/conf.d/default.conf && \
-    sed-patch 's|listen 80;|listen 8080;|' /opt/nginx-proxy-manager/src/backend/templates/letsencrypt-request.conf && \
-    sed-patch 's|listen 80;|listen 8080;|' /opt/nginx-proxy-manager/src/backend/templates/_listen.conf && \
-    sed-patch 's|listen 80 |listen 8080 |' /opt/nginx-proxy-manager/src/backend/templates/default.conf && \
-
-    # Change the HTTPs port 443 to the unprivileged port 4443.
-    sed-patch 's|listen 443 |listen 4443 |' /etc/nginx/conf.d/default.conf && \
-    sed-patch 's|listen 443 |listen 4443 |' /opt/nginx-proxy-manager/src/backend/templates/_listen.conf && \
-
     # Fix nginx test command line.
     sed-patch 's|-g "error_log off;"||' /opt/nginx-proxy-manager/src/backend/internal/nginx.js && \
-
-    # Remove the `user` directive, since we want nginx to run as non-root.
-    sed-patch 's|user root;|#user root;|' /etc/nginx/nginx.conf && \
 
     # Make sure nginx loads the stream module.
     sed-patch '/daemon off;/a load_module /usr/lib/nginx/modules/ngx_stream_module.so;' /etc/nginx/nginx.conf && \
@@ -161,7 +144,7 @@ VOLUME ["/config"]
 #   - 8080: HTTP traffic
 #   - 4443: HTTPs traffic
 #   - 8181: Management web interface
-EXPOSE 8080 4443 8181
+EXPOSE 80 443 81
 
 # Metadata.
 LABEL \
