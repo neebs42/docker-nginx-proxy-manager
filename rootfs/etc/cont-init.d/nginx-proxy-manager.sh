@@ -84,7 +84,7 @@ if [ ! -d /config/mysql ]; then
 
     log "Initializing database data directory..."
     mysql_install_db --datadir=/config/mysql >/config/log/init_db.log 2>&1
-    chown -R $USER_ID:$GROUP_ID /config/mysql
+#    chown -R $USER_ID:$GROUP_ID /config/mysql
     log "Database data directory initialized."
 fi
 
@@ -147,6 +147,6 @@ fi
 echo resolver $(awk 'BEGIN{ORS=" "} $1=="nameserver" {print $2}' /etc/resolv.conf) ";" > /config/nginx/resolvers.conf
 
 # Take ownership of the config directory content.
-find /config -mindepth 1 -exec chown $USER_ID:$GROUP_ID {} \;
+#find /config -mindepth 1 -exec chown $USER_ID:$GROUP_ID {} \;
 
 # vim:ft=sh:ts=4:sw=4:et:sts=4
