@@ -10,6 +10,7 @@ do
 done
 
 echo "[$(basename "$(pwd)")] starting..."
-exec s6-applyuidgid -u $USER_ID -g $GROUP_ID -G ${SUP_GROUP_IDS:-$GROUP_ID} /usr/sbin/nginx
+#exec s6-applyuidgid -u $USER_ID -g $GROUP_ID -G ${SUP_GROUP_IDS:-$GROUP_ID} /usr/sbin/nginx
+exec /usr/sbin/nginx
 
 # vim:ft=sh:ts=4:sw=4:et:sts=4
