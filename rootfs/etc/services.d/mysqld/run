@@ -6,7 +6,7 @@ set -u # Treat unset variables as an error.
 mkdir -p /run/mysqld
 #chown $USER_ID:$GROUP_ID /run/mysqld
 
-MYSQLD_CMD="/usr/bin/mysqld --datadir /config/mysql --tmpdir /tmp/"
+MYSQLD_CMD="/usr/bin/mysqld --datadir /config/mysql --user=root --tmpdir /tmp/"
 
 echo "[$(basename "$(pwd)")] starting..."
 if [ -d  /var/run/s6/services/mysqld ]; then
