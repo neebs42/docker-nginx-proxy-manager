@@ -144,7 +144,7 @@ VOLUME ["/config"]
 #   - 8080: HTTP traffic
 #   - 4443: HTTPs traffic
 #   - 8181: Management web interface
-EXPOSE 80 443 81
+EXPOSE 80 443 8181
 
 # Metadata.
 LABEL \
