@@ -93,6 +93,10 @@ RUN \
     cp -r nginx-proxy-manager/rootfs/etc/nginx /etc/ && \
     cp -r nginx-proxy-manager/rootfs/var/www /var/ && \
 
+    # Change the management interface port to the unprivileged port 8181.	
+    sed-patch 's|81|8181|' /opt/nginx-proxy-manager/src/backend/index.js && \	
+    sed-patch 's|81|8181|' /etc/nginx/conf.d/default.conf && \
+
     # Fix nginx test command line.
     sed-patch 's|-g "error_log off;"||' /opt/nginx-proxy-manager/src/backend/internal/nginx.js && \
 
